@@ -151,11 +151,6 @@ const getAllProperties = (options, limit = 10) => {
     }
   }
 
-  // if (options.minimum_rating) {
-  //   queryParams.push(`%${options.minimum_rating}%`);
-  //   queryString += `WHERE city LIKE $${queryParams.length} `;
-  // }
-
   // 4
   queryParams.push(limit);
   queryString += `
