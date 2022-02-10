@@ -4,6 +4,8 @@ const userInput = process.argv.slice(2);
 const cohortName = userInput[0];
 const maxNumberResults = userInput[1] || 5;
 
+const values = [`%${cohortName}%`, maxNumberResults];
+
 const pool = new Pool({
   user: "labber",
   password: "123",
@@ -21,9 +23,10 @@ pool
 SELECT students.id as student_id, students.name as name, cohorts.name as cohort
 FROM students
 JOIN cohorts ON cohorts.id = cohort_id
-WHERE cohorts.name = '${cohortName}%'
-LIMIT ${maxNumberResults};
-`
+WHERE cohorts.name LIKE $1
+LIMIT $2;
+`,
+    values
   )
   .then((res) => {
     res.rows.forEach((user) => {
